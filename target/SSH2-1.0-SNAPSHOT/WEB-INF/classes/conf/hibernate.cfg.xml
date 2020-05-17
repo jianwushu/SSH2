@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306</property><!--personinfo为你所要链接的数据库名称，如果不一样就改。-->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property><!--加载jdbc驱动，报错的话就是没有添加jar包（一定要添加，不是粘到lib下就行了）-->
+        <!--用户名-->
+        <!--密码-->
+
+        <!--配置数据库方言-->
+        <property name="dialect">
+            org.hibernate.dialect.MySQL5InnoDBDialect
+        </property>
+        <property name="show_sql">true</property><!--为了让hinbernate输出执行的底层的sql语句-->
+        <property name="format_sql">true</property><!--让输出的底层执行的sql语句有一定的格式-->
+
+        <!-- 指定自动生成数据表的策略 -->
+        <property name="hbm2ddl.auto">update</property>
+        <mapping resource="DormitoryEntity.hbm.xml"/>
+        <mapping class="entity.DormitoryEntity"/>
+        <mapping resource="StudentEntity.hbm.xml"/>
+        <mapping class="entity.StudentEntity"/>
+        <!--        <mapping resource="com/test/UserEntity.hbm.xml"/>&lt;!&ndash;引入LogInfo实体类的配置文件&ndash;&gt;-->
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <util:properties id="dbConfig" location="classpath:conf/db.properties"/>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="#{dbConfig.driver}"/>
+        <property name="url" value="#{dbConfig.url}"/>
+        <property name="username" value="#{dbConfig.username}"/>
+        <property name="password" value="#{dbConfig.password}"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+            </props>
+        </property>
+        <property name="mappingLocations">
+            <list>
+                <value>classpath:hbm/DormitoryEntity.hbm.xml</value>
+                <value>classpath:hbm/StudentEntity.hbm.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!--    配置事务管理器(声明式的事务)-->
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <bean id="baseDao" class="dao.BaseDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="loginDao" class="dao.LoginDaoImpl" parent="baseDao"/>
+    <bean id="loginService" class="service.LoginServiceImpl">
+        <property name="loginDao" ref="loginDao"/>
+    </bean>
+    <bean id="loginAction" class="action.LoginAction" scope="prototype">
+        <property name="loginService" ref="loginService"/>
+    </bean>
+    <bean id="login" class="action.basicAction"/>
+    <context:component-scan base-package="dao"/>
+    <context:component-scan base-package="service"/>
+</beans>
