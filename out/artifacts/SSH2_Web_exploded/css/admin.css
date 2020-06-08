@@ -1,0 +1,77 @@
+.clearFix::before,
+.clearFix::after{
+    content: '';
+    display: table;
+    clear: both;
+}
+a{
+    text-decoration: none;
+    color:#333;
+}
+body{
+    font: 14px/1.5 Helvetica Neue,Helvetica,Arial,Microsoft Yahei,Hiragino Sans GB,Heiti SC,WenQuanYi Micro Hei,sans-serif;
+    color: #333;
+    background-color: bisque;
+    min-width: 1226px;
+}
+.w{
+    /*固定容器的宽度*/
+    width: 1226px;
+    /*设置容器居中*/
+    margin: 0 auto;
+}
+
+.logo{
+    line-height: 60px;
+    font-size: 20px;
+    text-align: center;
+    background-color: rgb(125, 201, 175);
+}
+.header-wrapper{
+    height: 30px;
+    line-height: 30px;
+    background-color: #333;
+}
+.header-wrapper a{
+    color: #b0b0b0;
+    display: block;
+}
+.header-wrapper a:hover{
+    color:#fff;
+}
+.service li,.left-nav{
+    float: left;
+}
+.left-nav{
+
+}
+.service li{
+    margin: 0 8px;
+}
+
+.right-nav {
+    float: right;
+    margin: 0 8px;
+}
+.main-frame{
+    text-align: center;
+    height: 83%;
+    background-color: #fff;
+}
+.footer{
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+    background-color: rgb(179, 44, 84);
+    text-align: center
+}
+form{
+    padding-top: 100px;
+}
+.div_login{
+    padding-top: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
