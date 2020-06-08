@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository("studentDao")
 @Transactional
-public class StudentDaoImpl extends BaseDao implements StudentDao{
+public class StudentDaoImpl implements StudentDao{
     @Resource(name="hibernateTemplate")
     private HibernateTemplate hibernateTemplate;
     @Override
@@ -31,10 +31,10 @@ public class StudentDaoImpl extends BaseDao implements StudentDao{
 
     @Override
     public void updateStudent(Integer roomId) {
-        String hql = "from StudentEntity where room = ?";
+        String hql = "from StudentEntity where roomId = ?";
         List<StudentEntity> list = (List<StudentEntity>) hibernateTemplate.find(hql,roomId);
         for (StudentEntity stu:list){
-//            stu.setRoom(0);
+            stu.setRoom(null);
             hibernateTemplate.update(stu);
         }
     }

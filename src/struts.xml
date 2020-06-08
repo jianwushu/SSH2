@@ -5,40 +5,47 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-
-<!--    <package name="baseAction" extends="struts-default">-->
-<!--        <interceptors>-->
-<!--            <interceptor name="auth" class="baseAction"></interceptor>-->
-<!--        </interceptors>-->
-<!--        <global-results>-->
-<!--            <result name="login">login.jsp</result>-->
-<!--        </global-results>-->
-<!--    </package>-->
-    <package name="loginAction" extends="struts-default">
+    <package name="interceptor" extends="struts-default">
+        <interceptors>
+            <interceptor name="login" class="interceptor.MyInterceptor">
+                <param name="excludeMethods">login</param>
+            </interceptor>
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="login" />
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="myStack"></default-interceptor-ref>
+        <global-results>
+            <result name="login">${pageContext.request.contextPath}/login.jsp</result>
+        </global-results>
         <action name="admin" class="loginAction" method="admin">
-            <result name="success" type="redirect">/admin/index.jsp</result>
+            <result name="success">/WEB-INF/admin/index.jsp</result>
             <result name="error" type="redirect">login.jsp</result>
         </action>
+        <action name="student_*" class="studentAction" method="{1}">
+            <result name="profile">/WEB-INF/admin/profile.jsp</result>
+            <result name="updateSelf">/WEB-INF/admin/profile.jsp</result>
+            <result name="update">/WEB-INF/admin/studentInfo.jsp</result>
+            <result name="findAll">/WEB-INF/admin/studentInfo.jsp</result>
+            <result name="delete">/WEB-INF/admin/studentInfo.jsp</result>
+            <result name="add">/WEB-INF/admin/studentInfo.jsp</result>
+            <result name="error">/WEB-INF/admin/studentInfo.jsp</result>
+        </action>
+        <action name="dormitory_*" class="dormitoryAction" method="{1}">
+            <result name="{1}">/WEB-INF/admin/dormitoryInfo.jsp</result>
+            <result name="error">/WEB-INF/admin/dormitoryInfo.jsp</result>
+        </action>
+    </package>
+    <package name="loginAction" extends="struts-default">
         <action name="logout" class="loginAction" method="logout">
             <result name="success" type="redirect">/index.jsp</result>
         </action>
         <action name="login" class="loginAction">
-            <result name="success" type="redirect">/admin/index.jsp</result>
+            <result name="success">/WEB-INF/admin/index.jsp</result>
             <result name="error" >login.jsp</result>
         </action>
+
     </package>
-    <package name="entityAction" extends="struts-default">
-        <action name="student_*" class="studentAction" method="{1}">
-            <result name="updateSelf" type="redirect">/admin/profile.jsp</result>
-            <result name="update" type="redirect">/admin/studentInfo.jsp</result>
-            <result name="findAll" type="redirect">/admin/studentInfo.jsp</result>
-            <result name="delete" type="redirect">/admin/studentInfo.jsp</result>
-            <result name="add" type="redirect">/admin/studentInfo.jsp</result>
-            <result name="error" type="redirect">/admin/studentInfo.jsp</result>
-        </action>
-        <action name="dormitory_*" class="dormitoryAction" method="{1}">
-            <result name="{1}" type="redirect">/admin/dormitoryInfo.jsp</result>
-            <result name="error" type="redirect">/admin/dormitoryInfo.jsp</result>
-        </action>
-    </package>
+
 </struts>

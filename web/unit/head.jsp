@@ -17,8 +17,8 @@
         <s:if test="stuName!=null">
         <div class="left-nav clearFix">
                  <ul class="service">
-                        <li> <a href="http://localhost:8080/admin/index.jsp">主页</a></li>
-                        <li> <a href="http://localhost:8080/admin/profile.jsp">基本资料</a></li>
+                        <li> <a href="http://localhost:8080/admin">主页</a></li>
+                        <li> <a href="http://localhost:8080/admin/student_profile">基本资料</a></li>
                         <li> <a href="http://localhost:8080/admin/student_findAll">学生信息管理</a></li>
                         <li> <a href="http://localhost:8080/admin/dormitory_findAll">宿舍信息管理</a></li>
 <%--                        <li> <a href="">文件管理</a></li>--%>

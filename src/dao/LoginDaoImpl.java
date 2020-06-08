@@ -7,12 +7,10 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 import java.util.List;
 
-@Repository("loginDao")
-public class LoginDaoImpl extends BaseDao implements LoginDao{
+@Repository("loginDaoImpl")
+public class LoginDaoImpl implements LoginDao{
     @Resource(name="hibernateTemplate")
     private HibernateTemplate hibernateTemplate;
-    private StudentDao studentDao;
-
 
     @Override
     public StudentEntity find(String stuName, String stuPassword) {
@@ -26,8 +24,11 @@ public class LoginDaoImpl extends BaseDao implements LoginDao{
 
     @Override
     public StudentEntity find(long stuNumber, String stuPassword) {
-        initCtx();
-        studentDao = ctx.getBean("studentDao",StudentDao.class);
-        return studentDao.find(stuNumber,stuPassword);
+        String hql = "from StudentEntity where stuNumber = ? and stuPassword = ?";
+        List<StudentEntity> list = (List<StudentEntity>) hibernateTemplate.find(hql, stuNumber,stuPassword);
+        if(list.isEmpty()){
+            return null;
+        }
+        return list.get(0);
     }
 }

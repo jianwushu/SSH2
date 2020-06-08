@@ -3,23 +3,33 @@ package action;
 import com.opensymphony.xwork2.ActionContext;
 import entity.DormitoryEntity;
 import entity.StudentEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 import service.DormitoryService;
 import service.StudentService;
 
 import java.util.List;
 import java.util.Map;
 
+@Controller
+@Scope("prototype")
 public class DormitoryAction {
     private StudentEntity studentEntity;
     private DormitoryEntity dormitoryEntity;
+    @Autowired
+    @Qualifier("studentServiceImpl")
     private StudentService studentService;
+    @Autowired
+    @Qualifier("dormitoryServiceImpl")
     private DormitoryService dormitoryService;
     public String update(){
         dormitoryService.updateDormitory(dormitoryEntity);
         return "update";
     }
     public String delete(){
-//        studentService.updateStudent(dormitoryEntity.getRoomId());
+        studentService.updateStudent(dormitoryEntity.getRoomId());
         dormitoryService.deleteDormitory(dormitoryEntity);
         return "delete";
     }
@@ -36,21 +46,6 @@ public class DormitoryAction {
         Map session = ActionContext.getContext().getSession();
         session.put("dormitoryList",dormitoryList);
         return "findAll";
-    }
-    public StudentService getStudentService() {
-        return studentService;
-    }
-
-    public void setStudentService(StudentService studentService) {
-        this.studentService = studentService;
-    }
-
-    public DormitoryService getDormitoryService() {
-        return dormitoryService;
-    }
-
-    public void setDormitoryService(DormitoryService dormitoryService) {
-        this.dormitoryService = dormitoryService;
     }
 
     public DormitoryEntity getDormitoryEntity() {

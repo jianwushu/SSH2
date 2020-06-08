@@ -49,10 +49,13 @@ public class TestTest extends TestBase{
     @Test
 
     public void testAdd(){
-        DormitoryEntity dormitoryEntity = new DormitoryEntity("南一",112);
+        DormitoryEntity dormitoryEntity = new DormitoryEntity("南三",112);
         StudentEntity studentEntity = new StudentEntity("王3",201720180002l);
+        StudentEntity studentEntity2 = new StudentEntity("王4",201720180005l);
+        studentEntity.setRoom(dormitoryEntity);
+        studentEntity2.setRoom(dormitoryEntity);
         studentDao.addStudent(studentEntity);
-        dormitoryDao.addDormitory(dormitoryEntity);
+        studentDao.addStudent(studentEntity2);
     }
     /*增*/
     @Test
@@ -74,10 +77,6 @@ public class TestTest extends TestBase{
     /*查*/
     @Test
     public void query(){
-        String roomNumber = "admin";
-        String dormitoryName = "1";
-        StudentEntity dormitoryEntity = studentDao.find(roomNumber,dormitoryName);
-        System.out.println(dormitoryEntity.getStuName());
     }
     @Test
     public void service1(){

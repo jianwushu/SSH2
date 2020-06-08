@@ -25,16 +25,16 @@
                 <th>序号</th>
                 <th>楼栋</th>
                 <th>寝室</th>
-                <th>入住人数</th>
+<%--                <th>入住人数</th>--%>
                 <th>操作</th>
             </tr>
             <s:iterator id="dormitory" value="%{#session.dormitoryList}" status="list">
                 <tr>
-                    <td><s:property value="#list.getIndex()"/></td>
+                    <td><s:property value="#list.count"/></td>
                     <td hidden><s:property value="#dormitory.roomId"/></td>
                     <td><s:property value="#dormitory.dormitoryName"/></td>
                     <td><s:property value="#dormitory.roomNumber"/></td>
-                    <td></td>
+<%--                    <td></td>--%>
                     <td>
                         <button type="button" onclick="btnOn3(this)">删除</button><button type="button" onclick="btnOn4(this)">修改</button>
                     </td>
@@ -49,7 +49,7 @@
                     <td><s:textfield name="dormitoryEntity.roomNumber"  label="寝室">
                     </s:textfield>
                     </td>
-                    <td></td>
+<%--                    <td></td>--%>
                     <td>
                         <s:submit value="添加" class="s_input"></s:submit>
                         </button><button type="button" onclick="location.href='http://localhost:8080/admin/dormitory_findAll'">刷新</button>

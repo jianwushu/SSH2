@@ -4,14 +4,21 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import entity.DormitoryEntity;
 import entity.StudentEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 import service.DormitoryService;
 import service.LoginService;
 import java.util.Map;
 
+@Controller
+@Scope("prototype")
 public class LoginAction extends ActionSupport{
     private StudentEntity studentEntity;
+    @Autowired
+    @Qualifier("loginServiceImpl")
     private LoginService loginService;
-    private DormitoryService dormitoryService;
     public String execute() throws Exception{
         if(studentEntity.getStuName()=="" || studentEntity.getStuPassword()==""){
             addFieldError("studentEntity.stuName","用户名或密码不能为空");
@@ -29,7 +36,6 @@ public class LoginAction extends ActionSupport{
                 return ERROR;
             }
         }
-
     }
     public String logout(){
         Map session = ActionContext.getContext().getSession();
@@ -37,24 +43,7 @@ public class LoginAction extends ActionSupport{
         session.remove("dormitoryEntity");
         return SUCCESS;
     }
-    public StudentEntity getStudentEntity() {
-        return studentEntity;
-    }
-
-    public void setStudentEntity(StudentEntity studentEntity) {
-        this.studentEntity = studentEntity;
-    }
-
-    public LoginService getLoginService() {
-        return loginService;
-    }
-
-    public void setLoginService(LoginService loginService) {
-        this.loginService = loginService;
-    }
-
     public String admin(){
-        System.out.println("登录操作");
         Map session = ActionContext.getContext().getSession();
         if(session.get("studentEntity") == null)
         {
@@ -63,4 +52,13 @@ public class LoginAction extends ActionSupport{
             return "success";
         }
     }
+
+    public StudentEntity getStudentEntity() {
+        return studentEntity;
+    }
+
+    public void setStudentEntity(StudentEntity studentEntity) {
+        this.studentEntity = studentEntity;
+    }
+
 }

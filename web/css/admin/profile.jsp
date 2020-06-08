@@ -20,7 +20,6 @@
         <s:param name="stuName" value="%{#session.studentEntity.stuName}"/>
     </s:include>
     <div class="main-frame w">
-
         <table>
             <caption>
                 基本资料
@@ -56,16 +55,17 @@
     <div id="down"></div>
     <div id="up">
         <s:form action="student_updateSelf" method="POST" theme="simple">
+
             <table class="modal">
                 <s:hidden name="studentEntity.stuId" value="%{#session.studentEntity.stuId}"></s:hidden>
-                <s:hidden name="dormitoryEntity.roomId" value="%{#session.studentEntity.room.roomId}"></s:hidden>
+                <s:hidden name="dormitoryEntity.roomId" value="%{#session.dormitoryEntity.roomId}"></s:hidden>
                 <tr>
                     <td>姓名</td>
-                    <td><s:textfield name="studentEntity.stuName" value="%{#session.studentEntity.stuName}"  label="姓名"/></td>
+                    <td><s:textfield name="studentEntity.stuName" value="%{#session.studentEntity.stuName}" readonly="true" label="姓名"/></td>
                 </tr>
                 <tr>
                     <td>学号</td>
-                    <td><s:textfield name="studentEntity.stuNumber" value="%{#session.studentEntity.stuNumber}"  label="学号"/></td>
+                    <td><s:textfield name="studentEntity.stuNumber" value="%{#session.studentEntity.stuNumber}" readonly="true" label="学号"/></td>
                 </tr>
                 <tr>
                     <td>密码</td>
@@ -73,11 +73,11 @@
                 </tr>
                 <tr>
                     <td>楼栋</td>
-                    <td><s:textfield name="dormitoryEntity.dormitoryName" value="%{#session.studentEntity.room.dormitoryName}"  label="楼栋"/></td>
+                    <td><s:textfield name="dormitoryEntity.dormitoryName" value="%{#session.dormitoryEntity.dormitoryName}" readonly="true" label="楼栋"/></td>
                 </tr>
                 <tr>
                     <td>寝室</td>
-                    <td><s:textfield name="dormitoryEntity.roomNumber" value="%{#session.studentEntity.room.roomNumber}"  label="寝室号"/></td>
+                    <td><s:textfield name="dormitoryEntity.roomNumber" value="%{#session.dormitoryEntity.roomNumber}" readonly="true" label="寝室号"/></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -87,6 +87,14 @@
         </s:form>
     </div>
     <script src="/js/modal.js"></script>
+    <script type="text/javascript">
+        //错误提示信息
+        var msg=""+'${sessionScope.success}';
+        if(msg!=""){
+            alert(msg);
+        }
+        //-->
+    </script>
     <s:include value="/unit/footer.jsp"></s:include>
 </body>
 </html>

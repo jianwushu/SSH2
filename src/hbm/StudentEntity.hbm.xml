@@ -11,8 +11,8 @@
         <property name="stuName" column="StuName"/>
         <property name="stuPassword" column="StuPassword"/>
         <property name="stuNumber" column="StuNumber" unique-key="unique_key_id"/>
-<!--        <property name="roomId" column="RoomId"/>-->
+        <!--   <property name="room" type="java.lang.Integer" column="RoomId"/>-->
         <many-to-one name="room" lazy="false" class="entity.DormitoryEntity" column="RoomId"
-                     cascade="all"/>
+                    cascade="all"/>
 </class>
 </hibernate-mapping>

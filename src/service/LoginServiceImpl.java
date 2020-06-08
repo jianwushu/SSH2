@@ -3,22 +3,24 @@ package service;
 import dao.LoginDao;
 
 import entity.StudentEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 
-@Service("loginService")
+@Service
 public class LoginServiceImpl implements LoginService {
+    @Autowired
     private LoginDao loginDao;
     @Override
     public StudentEntity find(String stuName,String stuPassword) {
         return loginDao.find(stuName,stuPassword);
     }
 
-    public LoginDao getLoginDao() {
-        return loginDao;
+    @Override
+    public StudentEntity find(long stuNumber, String stuPassword) {
+        return loginDao.find(stuNumber,stuPassword);
     }
 
-    public void setLoginDao(LoginDao loginDao) {
-        this.loginDao = loginDao;
-    }
+
 }

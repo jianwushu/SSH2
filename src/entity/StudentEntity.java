@@ -9,7 +9,6 @@ public class StudentEntity implements Serializable {
     private Integer stuId;
     private String stuName;
     private String stuPassword;
-    private Integer roomId;
     private Long stuNumber;
     private DormitoryEntity room;
 
@@ -58,15 +57,6 @@ public class StudentEntity implements Serializable {
     public void setRoom(DormitoryEntity room) {
         this.room = room;
     }
-//    @Basic
-//    @Column(name = "RoomId")
-//    public Integer getRoomId() {
-//        return roomId;
-//    }
-//
-//    public void setRoomId(Integer roomId) {
-//        this.roomId = roomId;
-//    }
 
     @Override
     public String toString() {

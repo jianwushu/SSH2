@@ -3,31 +3,46 @@ package action;
 import com.opensymphony.xwork2.ActionContext;
 import entity.DormitoryEntity;
 import entity.StudentEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 import service.DormitoryService;
 import service.StudentService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Controller
+@Scope("prototype")
 public class StudentAction {
     private StudentEntity studentEntity;
     private DormitoryEntity dormitoryEntity;
+    @Autowired
+    @Qualifier("studentServiceImpl")
     private StudentService studentService;
+    @Autowired
+    @Qualifier("dormitoryServiceImpl")
     private DormitoryService dormitoryService;
+    public String profile(){
+        return "profile";
+    }
     public String updateSelf(){
         studentEntity.setRoom(dormitoryEntity);
         studentService.updateStudent(studentEntity);
-        Map request = (Map) ActionContext.getContext().get("request");
-        request.put("success","修改成功");
         Map session = ActionContext.getContext().getSession();
         session.put("studentEntity",studentEntity);
         session.put("dormitoryEntity",dormitoryEntity);
-        session.put("success","修改成功");
         return "updateSelf";
     }
     public String update(){
-        studentEntity.setRoom(dormitoryEntity);
+        DormitoryEntity dormitoryEntity1 = dormitoryService.find(dormitoryEntity.getDormitoryName(),dormitoryEntity.getRoomNumber());
+        if(dormitoryEntity1!=null){
+            studentEntity.setRoom(dormitoryEntity1);
+        }else {
+
+            studentEntity.setRoom(dormitoryEntity);
+        }
         studentService.updateStudent(studentEntity);
         return "update";
     }
@@ -37,7 +52,12 @@ public class StudentAction {
     }
     public String add(){
         if(studentEntity.getStuName()!="" && studentEntity.getStuNumber()!= null ) {
-            studentEntity.setRoom(dormitoryEntity);
+            DormitoryEntity dormitoryEntity1 = dormitoryService.find(dormitoryEntity.getDormitoryName(),dormitoryEntity.getRoomNumber());
+            if(dormitoryEntity1!=null) {
+                studentEntity.setRoom(dormitoryEntity1);
+            }else{
+                studentEntity.setRoom(dormitoryEntity);
+            }
             studentService.addStudent(studentEntity);
             return "add";
         }
@@ -45,30 +65,10 @@ public class StudentAction {
     }
     public String findAll(){
         List<StudentEntity> studentList = null;
-        List<DormitoryEntity> dormitoryList = new ArrayList<DormitoryEntity>();
         studentList = studentService.find();
-        for(StudentEntity stu:studentList){
-           dormitoryList.add(stu.getRoom());
-        }
         Map session = ActionContext.getContext().getSession();
         session.put("studentList",studentList);
-        session.put("dormitoryList",dormitoryList);
         return "findAll";
-    }
-    public StudentService getStudentService() {
-        return studentService;
-    }
-
-    public void setStudentService(StudentService studentService) {
-        this.studentService = studentService;
-    }
-
-    public DormitoryService getDormitoryService() {
-        return dormitoryService;
-    }
-
-    public void setDormitoryService(DormitoryService dormitoryService) {
-        this.dormitoryService = dormitoryService;
     }
 
     public DormitoryEntity getDormitoryEntity() {

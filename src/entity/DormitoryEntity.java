@@ -14,7 +14,7 @@ public class DormitoryEntity {
         return roomId;
     }
 
-    public void setRoomId(int roomId) {
+    public void setRoomId(Integer roomId) {
         this.roomId = roomId;
     }
 
@@ -40,7 +40,7 @@ public class DormitoryEntity {
 
     public DormitoryEntity() {
     }
-    public DormitoryEntity(String dormitoryName,int roomNumber) {
+    public DormitoryEntity(String dormitoryName,Integer roomNumber) {
         this.dormitoryName = dormitoryName;
         this.roomNumber = roomNumber;
     }

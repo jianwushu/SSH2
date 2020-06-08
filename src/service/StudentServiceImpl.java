@@ -2,12 +2,14 @@ package service;
 
 import dao.StudentDao;
 import entity.StudentEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("studentService")
+@Service
 public class StudentServiceImpl implements StudentService {
+    @Autowired
     private StudentDao studentDao;
     @Override
     public void addStudent(StudentEntity studentEntity) {
@@ -52,13 +54,5 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentEntity find(String stuName, String stuPassword) {
         return studentDao.find(stuName,stuPassword);
-    }
-
-    public StudentDao getStudentDao() {
-        return studentDao;
-    }
-
-    public void setStudentDao(StudentDao studentDao) {
-        this.studentDao = studentDao;
     }
 }

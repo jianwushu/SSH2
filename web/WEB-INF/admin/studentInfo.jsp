@@ -32,14 +32,14 @@
             </tr>
             <s:iterator id="student" value="%{#session.studentList}" status="list">
                 <tr>
-                    <td><s:property value="#list.getIndex()"/></td>
+                    <td><s:property value="#list.count"/></td>
                     <td hidden><s:property value="#student.stuId"/></td>
                     <td><s:property value="#student.stuName"/></td>
                     <td><s:property value="#student.stuNumber"/></td>
                     <td><s:property value="#student.stuPassword"/></td>
-                    <td><s:property value="%{#session.dormitoryList[#list.getIndex()].dormitoryName}"/></td>
-                    <td><s:property value="%{#session.dormitoryList[#list.getIndex()].roomNumber}"/></td>
-                    <td hidden><s:property value="%{#session.dormitoryList[#list.getIndex()].roomId}"/></td>
+                    <td><s:property value="#student.room.dormitoryName"/></td>
+                    <td><s:property value="#student.room.roomNumber"/></td>
+                    <td hidden><s:property value="#student.room.roomId"/></td>
                     <td>
                         <button type="button" onclick="btnOn(this)">删除</button><button type="button" onclick="btnOn2(this)">修改</button>
                     </td>
@@ -87,7 +87,7 @@
         <s:form action="student_update" method="POST" theme="simple">
             <table class="modal">
                 <s:hidden name="studentEntity.stuId" id="stuId2"></s:hidden>
-                <s:hidden name="dormitoryEntity.roomId" id="roomId"></s:hidden>
+<%--                <s:hidden name="dormitoryEntity.roomId" id="roomId"></s:hidden>--%>
                 <tr><td>姓名</td><td><s:textfield name="studentEntity.stuName" id="stuName" label="姓名"/></td>
                 </tr>
                 <tr><td>学号</td><td><s:textfield name="studentEntity.stuNumber" id="stuNumber" label="学号"/></td>

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository("dormitoryDao")
 @Transactional
-public class DormitoryDaoImpl extends BaseDao implements DormitoryDao{
+public class DormitoryDaoImpl implements DormitoryDao{
     @Resource(name="hibernateTemplate")
     private HibernateTemplate hibernateTemplate;
 

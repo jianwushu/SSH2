@@ -2,12 +2,14 @@ package service;
 
 import dao.DormitoryDao;
 import entity.DormitoryEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("dormitoryService")
+@Service
 public class DormitoryServiceImpl implements DormitoryService {
+    @Autowired
     private DormitoryDao dormitoryDao;
     @Override
     public void addDormitory(DormitoryEntity dormitoryEntity) {
@@ -49,11 +51,4 @@ public class DormitoryServiceImpl implements DormitoryService {
         return dormitoryDao.find(dormitoryName,roomNumber);
     }
 
-    public DormitoryDao getDormitoryDao() {
-        return dormitoryDao;
-    }
-
-    public void setDormitoryDao(DormitoryDao dormitoryDao) {
-        this.dormitoryDao = dormitoryDao;
-    }
 }
